@@ -1,8 +1,8 @@
 import { Component, Output, EventEmitter, ViewChild, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { Book, VolumeInfo } from 'app/modules/books/models';
-import { cloneDeep } from 'lodash';
+import { UtilsService } from '@core/services';
+import { Book, VolumeInfo } from '@books/models';
 
 @Component({
     selector: 'bc-book-add',
@@ -10,21 +10,20 @@ import { cloneDeep } from 'lodash';
     styleUrls: ['./book-add.component.scss']
 })
 export class BookAddComponent {
-
-    @Input() saving: boolean;
+    @Input() saving = false;
     @Output() add = new EventEmitter<Book>();
 
     @ViewChild('addForm', { static: false }) addForm: NgForm;
 
-    public book: Book = {} as Book;
-    public volumeInfo: VolumeInfo = {} as VolumeInfo;
+    book: Book = {} as Book;
+    volumeInfo: VolumeInfo = {} as VolumeInfo;
 
-    constructor() { }
+    constructor(private utilsService: UtilsService) {}
 
-    public addBook() {
+    addBook() {
         if (this.addForm.valid) {
             this.book.volumeInfo = this.volumeInfo;
-            this.add.emit(cloneDeep(this.book));
+            this.add.emit(this.utilsService.cloneDeep(this.book));
             this.addForm.reset();
         }
     }

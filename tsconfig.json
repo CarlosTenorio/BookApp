@@ -15,7 +15,7 @@
       "node_modules/@types"
     ],
     "lib": [
-      "es2018",
+      "es2017",
       "dom"
     ],
     "paths": {
@@ -28,14 +28,10 @@
       "@core/*": [
         "app/modules/core/*"
       ],
-      "sw-lib": [
-        "dist/sw-lib"
+      "@books/*": [
+        "app/modules/books/*"
       ],
-      "sw-lib/*": [
-        "dist/sw-lib/*"
-      ]
-    },
-    "allowJs": true
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

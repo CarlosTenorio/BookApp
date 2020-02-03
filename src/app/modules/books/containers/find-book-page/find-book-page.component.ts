@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
-import { BookService } from 'app/modules/books/services';
-import { Book } from 'app/modules/books/models';
+import { BookService } from '@books/services';
+import { Book } from '@books/models';
 
-import { finalize, takeUntil } from 'rxjs/operators';
-import { Subscription, Observable, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
     selector: 'bc-find-book-page',
@@ -12,12 +12,9 @@ import { Subscription, Observable, Subject } from 'rxjs';
     styleUrls: ['./find-book-page.component.scss']
 })
 export class FindBookPageComponent implements OnInit, OnDestroy {
-    searchQuery = '';
     books$: Observable<Book[]>;
     searching$: Observable<boolean>;
     destroy$: Subject<boolean> = new Subject<boolean>();
-
-    private subscriptions: Subscription[] = [];
 
     constructor(private bookService: BookService) {}
 

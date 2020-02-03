@@ -1,9 +1,10 @@
-import { Subscription } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { BookService } from 'app/modules/books/services';
 import { Book } from 'app/modules/books/models';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'app-view-book-page',
@@ -11,34 +12,27 @@ import { Book } from 'app/modules/books/models';
     styleUrls: ['./view-book-page.component.scss']
 })
 export class ViewBookPageComponent implements OnInit, OnDestroy {
+    book$: Observable<Book>;
+    isBookInCollection$: Observable<boolean>;
+    id: string;
+    destroy$: Subject<boolean> = new Subject<boolean>();
 
-    public book: Book;
-    public isSelectedBookInCollection: boolean;
-    private id: string;
-    private subscriptions: Subscription[] = [];
-
-    constructor(
-        public bookService: BookService,
-        private route: ActivatedRoute) {
-        this.subscriptions.push(this.route.params.subscribe(params => {
+    constructor(private bookService: BookService, private route: ActivatedRoute) {
+        this.route.params.subscribe(params => {
             this.id = params.id;
-        }));
+        });
     }
 
-    public ngOnInit(): void {
-        this.subscriptions.push(this.bookService.retrieveBook(this.id)
-            .subscribe((book: Book) => {
-                this.book = book;
-                this.isSelectedBookInCollection = this.bookService.bookIsInCollection(this.book);
-            }));
+    ngOnInit() {
+        this.book$ = this.bookService.retrieveBook(this.id).pipe(takeUntil(this.destroy$));
+        this.isBookInCollection$ = this.bookService.isBookInCollection$;
     }
 
-    public ngOnDestroy(): void {
-        this.subscriptions.forEach((subscription: Subscription) => subscription.unsubscribe());
+    ngOnDestroy() {
+        this.destroy$.next(true);
     }
 
-    public addToCollection(book: Book) {
+    addToCollection(book: Book) {
         this.bookService.addBook(book);
     }
-
 }

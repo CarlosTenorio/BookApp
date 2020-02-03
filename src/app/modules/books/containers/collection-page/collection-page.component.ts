@@ -9,18 +9,17 @@ import { Observable } from 'rxjs';
     styleUrls: ['./collection-page.component.scss']
 })
 export class CollectionPageComponent implements OnInit {
-    saving: boolean;
+    saving$: Observable<boolean>;
     myCollection$: Observable<Book[]>;
 
     constructor(private bookService: BookService) {}
 
     ngOnInit() {
         this.myCollection$ = this.bookService.myCollection$;
+        this.saving$ = this.bookService.saving$;
     }
 
     addBook(book: Book) {
-        this.saving = true;
         this.bookService.addBook(book);
-        this.saving = false;
     }
 }

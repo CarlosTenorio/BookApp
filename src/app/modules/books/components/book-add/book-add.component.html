@@ -32,8 +32,8 @@
             (click)="addBook()"
             [disabled]="saving || !addForm.valid"
         >
-            Add book
-            <mat-spinner *ngIf="saving"></mat-spinner>
+            <span>Add book</span>
+            <mat-spinner *ngIf="saving" diameter="20"></mat-spinner>
         </button>
     </div>
 </form>

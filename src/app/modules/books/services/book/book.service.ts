@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Book } from 'app/modules/books/models/book.model';
+import { Book } from '@books/models';
 
 import { map, finalize } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { some } from 'lodash';
+import { environment } from '@env';
 
 @Injectable()
 export class BookService {
@@ -16,7 +17,11 @@ export class BookService {
     private searchingSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
     readonly searching$: Observable<boolean> = this.searchingSubject.asObservable();
 
-    readonly googleAPI = 'https://www.googleapis.com/books/v1/volumes';
+    private savingSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    readonly saving$: Observable<boolean> = this.savingSubject.asObservable();
+
+    private isBookInCollectionSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
+    readonly isBookInCollection$: Observable<boolean> = this.isBookInCollectionSubject.asObservable();
 
     constructor(private http: HttpClient) {}
 
@@ -41,13 +46,16 @@ export class BookService {
     }
 
     addBook(book: Book) {
+        this.savingSubject.next(true);
         this.myCollection.push(book ? book : this.generateBook());
         this.myCollectionSubject.next(this.myCollection);
+        this.savingSubject.next(false);
+        this.isBookInCollectionSubject.next(true);
     }
 
     searchBooks(queryTitle: string): Observable<Book[]> {
         this.searchingSubject.next(true);
-        return this.http.get<{ items: Book[] }>(`${this.googleAPI}?q=${queryTitle}`).pipe(
+        return this.http.get<{ items: Book[] }>(`${environment.googleAPI}?q=${queryTitle}`).pipe(
             map(books => books.items || []),
             finalize(() => {
                 this.searchingSubject.next(false);
@@ -55,13 +63,16 @@ export class BookService {
         );
     }
 
-    retrieveBook(volumeId: string): Observable<Book> {
-        return this.http.get<Book>(`${this.googleAPI}/${volumeId}`);
+    retrieveBook(bookId: string): Observable<Book> {
+        this.checkIfIsCollection(bookId);
+        return this.http.get<Book>(`${environment.googleAPI}/${bookId}`).pipe(map(book => book));
     }
 
-    bookIsInCollection(book: Book): boolean {
-        return some(this.myCollection, (bookOnCollection: Book) => {
-            return bookOnCollection.id === book.id;
-        });
+    checkIfIsCollection(bookId: string) {
+        this.isBookInCollectionSubject.next(
+            some(this.myCollection, (book: Book) => {
+                return book.id === bookId;
+            })
+        );
     }
 }

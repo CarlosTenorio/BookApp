@@ -4,5 +4,5 @@
 export const environment = {
     envName: 'debug',
     production: false,
-    url: 'https://portal.pmcs-helpline.com/helpLinePortal/api/'
+    googleAPI: 'https://www.googleapis.com/books/v1/volumes'
 };

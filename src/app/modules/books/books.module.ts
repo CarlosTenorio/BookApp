@@ -5,15 +5,15 @@ import { RouterModule, Route } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 // Our stuff
-import { CollectionPageComponent, FindBookPageComponent, ViewBookPageComponent } from './containers';
+import { CollectionPageComponent, FindBookPageComponent, ViewBookPageComponent } from '@books/containers';
 import {
     BookPreviewComponent,
     BookPreviewListComponent,
     BookAddComponent,
     BookSearchComponent,
     BookDetailComponent
-} from './components';
-import { BookService } from './services';
+} from '@books/components';
+import { BookService } from '@books/services';
 // Material Imports
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material';

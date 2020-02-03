@@ -1,10 +1,26 @@
-<mat-card>
-    <mat-card-title>Find a Book</mat-card-title>
-    <mat-card-content>
-        <mat-form-field>
-            <input matInput placeholder="Search for a book" [value]="query" [(ngModel)]="searchValue" />
-        </mat-form-field>
-        <button mat-raised-button color="primary" (click)="applySearch()">Search</button>
-        <mat-spinner *ngIf="searching" [diameter]="30" [strokeWidth]="3"></mat-spinner>
-    </mat-card-content>
-</mat-card>
+<form #searchForm="ngForm">
+    <mat-card>
+        <mat-card-title>Find a Book</mat-card-title>
+        <mat-card-content>
+            <mat-form-field>
+                <input
+                    matInput
+                    name="search-value"
+                    placeholder="Search for a book"
+                    [(ngModel)]="searchValue"
+                    required
+                />
+            </mat-form-field>
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="applySearch()"
+                type="submit"
+                [disabled]="searching || !searchForm.valid"
+            >
+                Search
+            </button>
+            <mat-spinner *ngIf="searching" [diameter]="30" [strokeWidth]="3"></mat-spinner>
+        </mat-card-content>
+    </mat-card>
+</form>

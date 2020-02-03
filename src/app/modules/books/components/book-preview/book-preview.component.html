@@ -1,4 +1,4 @@
-<a *ngIf="book!=null" (click)="goToDetail()">
+<div *ngIf="book" (click)="goToDetail()" class="pointer">
     <mat-card>
         <mat-card-title-group>
             <mat-card-title>
@@ -14,4 +14,4 @@
             </p>
         </mat-card-content>
     </mat-card>
-</a>
+</div>
