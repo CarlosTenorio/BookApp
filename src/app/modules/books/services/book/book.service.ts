@@ -75,4 +75,8 @@ export class BookService {
             })
         );
     }
+
+    setSearching(searching: boolean) {
+        this.searchingSubject.next(searching);
+    }
 }

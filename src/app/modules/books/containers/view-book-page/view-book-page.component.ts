@@ -18,7 +18,7 @@ export class ViewBookPageComponent implements OnInit, OnDestroy {
     destroy$: Subject<boolean> = new Subject<boolean>();
 
     constructor(private bookService: BookService, private route: ActivatedRoute) {
-        this.route.params.subscribe(params => {
+        this.route.params.pipe(takeUntil(this.destroy$)).subscribe(params => {
             this.id = params.id;
         });
     }

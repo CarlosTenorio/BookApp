@@ -19,6 +19,7 @@ export class FindBookPageComponent implements OnInit, OnDestroy {
     constructor(private bookService: BookService) {}
 
     ngOnInit(): void {
+        this.bookService.setSearching(false);
         this.searching$ = this.bookService.searching$;
     }
 
