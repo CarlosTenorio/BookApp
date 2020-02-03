@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  frontend:
+    build: .
+    expose:
+      - "4200"
+      - "49153"
+      - "9876"
+      - "49152"
+    ports:
+      - "4200:4200"
+      - "49153:49153"
+      - "9876:9876"
+      - "49152:49152"
+    volumes:
+      - ".:/ng-app"
+    command: /bin/sh

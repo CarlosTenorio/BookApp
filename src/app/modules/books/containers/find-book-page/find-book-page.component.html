@@ -1,0 +1,2 @@
+<bc-book-search [query]="searchQuery" [searching]="searching$ | async" (search)="search($event)"> </bc-book-search>
+<bc-book-preview-list [books]="books$ | async"></bc-book-preview-list>

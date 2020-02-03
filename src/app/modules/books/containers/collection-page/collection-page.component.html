@@ -1,0 +1,7 @@
+<mat-card>
+    <mat-card-title>My Collection</mat-card-title>
+    <button mat-raised-button color="primary" routerLink="search">Search Book</button>
+</mat-card>
+
+<bc-book-add [saving]="saving" (add)="addBook($event)"></bc-book-add>
+<bc-book-preview-list [books]="myCollection$ | async"></bc-book-preview-list>

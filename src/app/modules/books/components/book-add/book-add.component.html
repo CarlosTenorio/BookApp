@@ -1,0 +1,39 @@
+<form #addForm="ngForm">
+    <div class="mdc-layout-grid">
+        <div class="mdc-layout-grid__inner">
+            <div>
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Title"
+                        type="text"
+                        [(ngModel)]="volumeInfo.title"
+                        name="title"
+                        required
+                        autocomplete="off"
+                    />
+                </mat-form-field>
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Subtitle"
+                        type="text"
+                        [(ngModel)]="volumeInfo.subtitle"
+                        name="subtitle"
+                        autocomplete="off"
+                    />
+                </mat-form-field>
+            </div>
+        </div>
+        <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            (click)="addBook()"
+            [disabled]="saving || !addForm.valid"
+        >
+            Add book
+            <mat-spinner *ngIf="saving"></mat-spinner>
+        </button>
+    </div>
+</form>

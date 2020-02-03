@@ -1,0 +1,15 @@
+<mat-card *ngIf="book">
+    <mat-card-title-group>
+        <mat-card-title>{{ book.volumeInfo.title }}</mat-card-title>
+        <mat-card-subtitle *ngIf="book.volumeInfo.subtitle">{{ book.volumeInfo.subtitle }}</mat-card-subtitle>
+        <img mat-card-sm-image *ngIf="book.volumeInfo.imageLinks.thumbnail" [src]="book.volumeInfo.imageLinks.thumbnail" />
+    </mat-card-title-group>
+    <mat-card-content>
+        <p [innerHtml]="book.volumeInfo.description"></p>
+    </mat-card-content>
+    <mat-card-actions align="start">
+        <button mat-raised-button color="primary" *ngIf="!inCollection" (click)="add.emit(book)">
+            Add Book to Collection
+        </button>
+    </mat-card-actions>
+</mat-card>
