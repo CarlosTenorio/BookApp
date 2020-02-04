@@ -23,6 +23,7 @@ export class BookAddComponent {
     addBook() {
         if (this.addForm.valid) {
             this.book.volumeInfo = this.volumeInfo;
+            this.book.custom = true;
             this.add.emit(this.utilsService.cloneDeep(this.book));
             this.addForm.reset();
         }

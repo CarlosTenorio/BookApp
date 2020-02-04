@@ -9,13 +9,13 @@ import { Book } from 'app/modules/books/models';
     styleUrls: ['./book-preview.component.scss']
 })
 export class BookPreviewComponent {
-
     @Input() book: Book;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router) {}
 
-    public goToDetail() {
-        this.router.navigate(['./books', this.book.id]);
+    goToDetail() {
+        if (!this.book.custom) {
+            this.router.navigate(['./books', this.book.id]);
+        }
     }
-
 }

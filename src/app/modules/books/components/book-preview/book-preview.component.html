@@ -1,9 +1,7 @@
-<div *ngIf="book" (click)="goToDetail()" class="pointer">
+<div *ngIf="book" (click)="goToDetail()" [class.pointer]="!book.custom">
     <mat-card>
         <mat-card-title-group>
-            <mat-card-title>
-                {{ book.volumeInfo.title }}
-            </mat-card-title>
+            <mat-card-title> {{ book.volumeInfo.title }} {{ book.custom ? '(Custom)' : null }} </mat-card-title>
             <mat-card-subtitle *ngIf="book.volumeInfo.subtitle">
                 {{ book.volumeInfo.subtitle }}
             </mat-card-subtitle>

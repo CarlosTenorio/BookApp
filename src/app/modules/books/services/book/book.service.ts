@@ -5,7 +5,6 @@ import { Book } from '@books/models';
 
 import { map, finalize } from 'rxjs/operators';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { some } from 'lodash';
 import { environment } from '@env';
 
 @Injectable()
@@ -70,7 +69,7 @@ export class BookService {
 
     checkIfIsCollection(bookId: string) {
         this.isBookInCollectionSubject.next(
-            some(this.myCollection, (book: Book) => {
+            this.myCollection.some((book: Book) => {
                 return book.id === bookId;
             })
         );
