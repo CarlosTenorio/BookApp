@@ -1,5 +1,5 @@
 export const environment = {
     envName: 'prod',
     production: true,
-    url: 'https://production/api/'
+    googleAPI: 'https://www.googleapis.com/books/v1/volumes'
 };

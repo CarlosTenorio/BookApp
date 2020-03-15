@@ -16,7 +16,7 @@ import {
 import { BookService } from '@books/services';
 // Material Imports
 import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material';
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatButtonModule } from '@angular/material/button';
